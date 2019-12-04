@@ -5,140 +5,154 @@
 
     <meta charset="utf-8">
     <title>Tennis</title>
+    <!--Insercao do Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
   </head>
 
   <body>
+    <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1 mx-auto">Jogo de Tenis JavaScripty</span>
+    </nav>
+      <br><br><br><br>
+    <div class="container mxauto" style="align-content: center;" >
+      <canvas id="folha" width="600" height="500"></canvas>
 
-    <canvas id="folha" width="600" height="500"></canvas>
+      <script type="text/javascript">
 
-    <script type="text/javascript">
-
-    window.onload = function () {
-        iniciar();
-        setInterval(principal, 1000/30);
-      }
-
-      function iniciar(){
-             folhaDesenho = document.getElementById("folha");
-             areaDesenho = folhaDesenho.getContext("2d");
-             larguraCampo = 600;
-             alturaCampo = 500;
-             larguraLinha= 5;
-             tamanhoRaquete = 70;
-             larguraRaquete = 5;
-             bola = 8;
-             efeitoRaquete = 0.1;
-             bolax = 60;
-             bolay = 110;
-             velbolax =5;
-             velbolay =5;
-             faseJogo = 1;
-             posicaoJogador1 = 240;
-             posicaoJogador2 = 100;
-             pontuacaoJogador1 = 0;
-             pontuacaoJogador2 =0;
-             velocidadeJogador = 4;
-             dificuldade = 2;
-            // função movimente raquete com mouse
-            folhaDesenho.addEventListener("mousemove", function(e){
-              posicaoJogador1 = e.clientY -tamanhoRaquete/2;
-            });
-      }
-      function principal(){
-
-        desenhar();
-        calcular();
-        nivel();
-      }
-
-      function desenhar (){
-
-        //Desenha o campo
-        areaDesenho.fillStyle = '#89250C';
-        areaDesenho.fillRect (0,0,larguraCampo,alturaCampo);
-        //desenha a rede do campo
-        areaDesenho.fillStyle = '#fff';
-        // linha divis[oria centro do campo]
-        areaDesenho.fillRect((larguraCampo-larguraLinha)/2,0,larguraLinha, alturaCampo);
-        // Raquete Direira
-        areaDesenho.fillRect(0, posicaoJogador1,larguraRaquete, tamanhoRaquete);
-        // Raquete esquerda
-        areaDesenho.fillRect(larguraCampo-larguraRaquete,posicaoJogador2,larguraRaquete, tamanhoRaquete);
-        //pontuação dos jogadores
-        areaDesenho.fillText("Desafiante " + pontuacaoJogador1 +" Pontos", 100, 100);
-        areaDesenho.fillText("Adversário " + pontuacaoJogador2 +" Pontos", larguraCampo-200, 100);
-        //bola
-        areaDesenho.fillRect(bolax,bolay,bola,bola);
-      }
-
-      function calcular() {
-
-        bolax = bolax + velbolax;
-        bolay = bolay + velbolay;
-
-        if(posicaoJogador2 + tamanhoRaquete/2 < bolay){
-        posicaoJogador2 = posicaoJogador2 + velocidadeJogador;
-        }
-        else {
-        posicaoJogador2 = posicaoJogador2 - velocidadeJogador;
+      window.onload = function () {
+          iniciar();
+          setInterval(principal, 1000/30);
         }
 
-        if (bolay<0 && velbolay<0) {
-        velbolay = -velbolay;
+        function iniciar(){
+              folhaDesenho = document.getElementById("folha");
+              areaDesenho = folhaDesenho.getContext("2d");
+              larguraCampo = 600;
+              alturaCampo = 500;
+              larguraLinha= 5;
+              tamanhoRaquete = 70;
+              larguraRaquete = 5;
+              bola = 8;
+              efeitoRaquete = 0.1;
+              bolax = 60;
+              bolay = 110;
+              velbolax =5;
+              velbolay =5;
+              faseJogo = 1;
+              posicaoJogador1 = 240;
+              posicaoJogador2 = 100;
+              pontuacaoJogador1 = 0;
+              pontuacaoJogador2 =0;
+              velocidadeJogador = 4;
+              dificuldade = 2;
+              // função movimente raquete com mouse
+              folhaDesenho.addEventListener("mousemove", function(e){
+                posicaoJogador1 = e.clientY -tamanhoRaquete/2;
+              });
         }
-        if (bolay>alturaCampo && velbolay>0) {
-        velbolay = -velbolay;
+        function principal(){
+
+          desenhar();
+          calcular();
+          nivel();
         }
 
-        if (bolax<0) {
-          if (bolay > posicaoJogador1 && bolay < posicaoJogador1 + tamanhoRaquete) {
+        function desenhar (){
+
+          //Desenha o campo
+          areaDesenho.fillStyle = '#89250C';
+          areaDesenho.fillRect (0,0,larguraCampo,alturaCampo);
+          //desenha a rede do campo
+          areaDesenho.fillStyle = '#fff';
+          // linha divis[oria centro do campo]
+          areaDesenho.fillRect((larguraCampo-larguraLinha)/2,0,larguraLinha, alturaCampo);
+          // Raquete Direira
+          areaDesenho.fillRect(0, posicaoJogador1,larguraRaquete, tamanhoRaquete);
+          // Raquete esquerda
+          areaDesenho.fillRect(larguraCampo-larguraRaquete,posicaoJogador2,larguraRaquete, tamanhoRaquete);
+          //pontuação dos jogadores
+          areaDesenho.fillText("Desafiante " + pontuacaoJogador1 +" Pontos", 100, 100);
+          areaDesenho.fillText("Adversário " + pontuacaoJogador2 +" Pontos", larguraCampo-200, 100);
+          //bola
+          areaDesenho.fillRect(bolax,bolay,bola,bola);
+        }
+
+        function calcular() {
+
+          bolax = bolax + velbolax;
+          bolay = bolay + velbolay;
+
+          if(posicaoJogador2 + tamanhoRaquete/2 < bolay){
+          posicaoJogador2 = posicaoJogador2 + velocidadeJogador;
+          }
+          else {
+          posicaoJogador2 = posicaoJogador2 - velocidadeJogador;
+          }
+
+          if (bolay<0 && velbolay<0) {
+          velbolay = -velbolay;
+          }
+          if (bolay>alturaCampo && velbolay>0) {
+          velbolay = -velbolay;
+          }
+
+          if (bolax<0) {
+            if (bolay > posicaoJogador1 && bolay < posicaoJogador1 + tamanhoRaquete) {
+                velbolax = -velbolax;
+                // efeito bola
+                var diferencaY = bolay - (posicaoJogador1-tamanhoRaquete/2);
+                velbolay = diferencaY*efeitoRaquete;
+            }
+            else {
+              //o jogador 2 fez ponto
+              pontuacaoJogador2 = pontuacaoJogador2 + 1;
+              // coloca a bola no meio do alturaCampo
+              continuar();
+            }
+          }
+
+          if (bolax > larguraCampo) {
+            if (bolay>posicaoJogador2 && bolay < posicaoJogador2 + tamanhoRaquete) {
               velbolax = -velbolax;
-              // efeito bola
-              var diferencaY = bolay - (posicaoJogador1-tamanhoRaquete/2);
+              //efeito bola
+              var diferencaY = bolay - (posicaoJogador2-tamanhoRaquete/2);
               velbolay = diferencaY*efeitoRaquete;
-          }
-          else {
-            //o jogador 2 fez ponto
-            pontuacaoJogador2 = pontuacaoJogador2 + 1;
-            // coloca a bola no meio do alturaCampo
-            continuar();
-          }
-        }
+            }
+            else {
+              // jogador 1 fez ponto
+              pontuacaoJogador1 = pontuacaoJogador1 +1;
+              // coloca a bola no centro
+              continuar();
 
-        if (bolax > larguraCampo) {
-          if (bolay>posicaoJogador2 && bolay < posicaoJogador2 + tamanhoRaquete) {
-            velbolax = -velbolax;
-            //efeito bola
-            var diferencaY = bolay - (posicaoJogador2-tamanhoRaquete/2);
-            velbolay = diferencaY*efeitoRaquete;
-          }
-          else {
-            // jogador 1 fez ponto
-            pontuacaoJogador1 = pontuacaoJogador1 +1;
-            // coloca a bola no centro
-            continuar();
-
+            }
           }
         }
-      }
-      function continuar(){
-        bolax = larguraCampo/2;
-        bolay = alturaCampo/2;
-        velbolax = -velbolax;
-        velbolay = 3;
-      }
-      function nivel(){
-         if (pontuacaoJogador1 > 2){
-           velbolax = -7;
-           velbolay =-7;
-         }
+        function continuar(){
+          bolax = larguraCampo/2;
+          bolay = alturaCampo/2;
+          velbolax = -velbolax;
+          velbolay = 3;
+        }
+        function nivel(){
+          if (pontuacaoJogador1 > 2){
+            velbolax = -7;
+            velbolay =-7;
+          }
 
-      }
+        }
 
 
-    </script>
-
+      </script>
+    </div>
+    <!--Insercao do Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 
 </html>
